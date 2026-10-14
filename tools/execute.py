@@ -17,10 +17,12 @@ Usage (from the repo root, with the environment from requirements.txt)::
 import argparse
 import datetime
 import importlib.metadata
+import sys
 from pathlib import Path
 
 import nbformat
 from nbclient import NotebookClient
+from nbclient.exceptions import CellExecutionError
 from ortools.math_opt.python import mathopt
 from quicopt import Client
 
@@ -68,15 +70,26 @@ def execute(path: Path) -> None:
 
 
 def main() -> None:
-    """Warm the server up, then execute the given notebooks one after another."""
+    """Warm the server up, then execute the given notebooks one after another.
+
+    A notebook whose execution fails is left untouched on disk and reported;
+    the others still run. The exit status is 1 if any failed.
+    """
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("notebooks", type=Path, nargs="+")
     args = parser.parse_args()
 
     warm_up()
+    failed = []
     for path in args.notebooks:
-        execute(path)
-        print(f"executed {path}")
+        try:
+            execute(path)
+            print(f"executed {path}")
+        except CellExecutionError as error:
+            failed.append(path)
+            print(f"FAILED {path}\n{error}", file=sys.stderr)
+    if failed:
+        sys.exit(f"{len(failed)} failed: {', '.join(map(str, failed))}")
 
 
 if __name__ == "__main__":
