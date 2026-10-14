@@ -3,6 +3,6 @@
 __pycache__/
 .DS_Store
 
-# Maintainer notes stay out of this public repo.
-CLAUDE.md
-plan-*.md
+# No markdown files in this repo: the notebooks are the content, and notes
+# (plans, to-dos, CLAUDE.md) stay local.
+*.md
