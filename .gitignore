@@ -1,0 +1,8 @@
+.venv/
+.ipynb_checkpoints/
+__pycache__/
+.DS_Store
+
+# Maintainer notes stay out of this public repo.
+CLAUDE.md
+plan-*.md
