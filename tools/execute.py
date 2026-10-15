@@ -1,4 +1,4 @@
-"""Execute tutorial notebooks against the live Quicopt server and store the outputs.
+"""Execute notebooks against the live Quicopt server and store the outputs.
 
 A notebook here is executed once and committed with its outputs. Every solve's
 output includes ``solve_time``. The first call after a pause takes several times
@@ -12,7 +12,10 @@ outputs, and on which date.
 
 Usage (from the repo root, with the environment from requirements.txt)::
 
-    .venv/bin/python tools/execute.py notebooks/knapsack.ipynb [more.ipynb ...]
+    .venv/bin/python tools/execute.py tutorials/knapsack.ipynb [more.ipynb ...]
+
+The tutorials (``tutorials/``) and the use cases (``use-cases/``) are both
+executed this way.
 """
 import argparse
 import datetime
