@@ -2,5 +2,9 @@
 # stored outputs come from; mathopt and pyomo are the two modeling front-ends
 # the tutorials use. ipykernel + nbconvert execute a notebook from the command line.
 quicopt[mathopt,pyomo]==0.6.0
+# HiGHS for the MILPs a use case solves locally (Pyomo's appsi_highs). Pinned to the
+# HiGHS that OR-Tools 9.15 bundles: both ship libhighs under one name, the first one
+# loaded in a process serves both, and a newer highspy loaded first breaks CP-SAT.
+highspy==1.12.0
 ipykernel
 nbconvert
